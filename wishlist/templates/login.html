@@ -6,13 +6,13 @@
 
 {% block content %}
 
-<div class = "login">
+<div class = "login" style="text-align:center">
 
     <h1>Login</h1>
 
     <form method="POST" action="">
         {% csrf_token %}
-        <table>
+        <table style="margin-left:auto; margin-right:auto">
             <tr>
                 <td>Username: </td>
                 <td><input type="text" name="username" placeholder="Username" class="form-control"></td>
