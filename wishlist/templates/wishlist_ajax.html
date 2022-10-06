@@ -1,16 +1,49 @@
 {% extends 'base.html' %}
 
 {% block content %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        function loadTable(){
+            $.get( "http://localhost:8000/wishlist/json/", function(data){
+                for(var i = 0; i<data.length; i++){
+                    // buat row
+                    var header = document.createElement("tr");
 
-<!-- <nav class="navbar navbar-expand-lg bg-light">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="#">{{nama}}</a> -->
-      <!-- <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button> -->
-      <!-- <button class="btn btn-info" type="button"><a href="{% url 'wishlist:logout' %}">Logout</a></button>
-    </div>
-  </nav> -->
+                    // buat cell
+                    var cellBarang = document.createElement("td");
+                    var cellHarga = document.createElement("td");
+                    var cellDeskripsi = document.createElement("td");
+
+
+                    // append data sesuai rownya
+                    cellBarang.append(data[i].fields.nama_barang);
+                    cellHarga.append(data[i].fields.harga_barang);
+                    cellDeskripsi.append(data[i].fields.deskripsi);
+
+                    // append row ke dalam table
+                    header.append(cellBarang);
+                    header.append(cellHarga);
+                    header.append(cellDeskripsi);
+
+                    // add data ke dalam table
+                    $(".table").append(header);
+                }
+            }); // ini tutu
+        } // ini tutupan function
+
+        $(document).ready(function(){
+            loadTable();
+
+
+        })
+        
+
+        
+    </script>
+{% endblock content%}
+
+{% block content %}
+
 
   <nav class="navbar navbar-expand-lg bg-light">
     <div class="container-fluid">
@@ -51,7 +84,7 @@
 
 
 <div class ="d-flex flex-row align-items-center justify-content-center">
-    <h5>Nama: &nbsp</h5>
+    <h5>Nama: </h5>
     <h5>{{nama}}</h5>
 </div>
 
@@ -70,6 +103,9 @@
     </tr>
 {% endfor %}
 </table>
+
+
+
 <p><b>Sesi terakhir login : {{last_login}}</b></p>
 
 {% endblock content %}
